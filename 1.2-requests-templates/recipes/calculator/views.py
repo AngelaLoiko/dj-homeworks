@@ -16,6 +16,13 @@ DATA = {
         'сыр, ломтик': 1,
         'помидор, ломтик': 1,
     },
+    'lasanga':{
+        'сыр, грамм': 100,
+        'лазанья, лист': 12,
+        'фарш, грамм': 200,
+        'соус бешамель, грамм': 500,
+
+    }
     # можете добавить свои рецепты ;)
 }
 
@@ -28,3 +35,44 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+def omlet(request):
+    servings = request.GET.get('servings', None)
+    recipe = DATA['omlet']
+
+    context = {
+        'recipe': recipe,
+        'servings': servings if servings is None else int(servings),
+    }
+    return render(request, 'calculator/index.html', context)
+
+
+def pasta(request):
+    servings = request.GET.get('servings', None)
+    recipe = DATA['pasta']
+
+    context = {
+        'recipe': recipe,
+        'servings': servings if servings is None else int(servings),
+    }
+    return render(request, 'calculator/index.html', context)
+
+
+def buter(request):
+    servings = request.GET.get('servings', None)
+    recipe = DATA['buter']
+
+    context = {
+        'recipe': recipe,
+        'servings': servings if servings is None else int(servings),
+    }
+    return render(request, 'calculator/index.html', context)
+
+def lasanga(request):
+    servings = request.GET.get('servings', None)
+    recipe = DATA['lasanga']
+
+    context = {
+        'recipe': recipe,
+        'servings': servings if servings is None else int(servings),
+    }
+    return render(request, 'calculator/index.html', context)

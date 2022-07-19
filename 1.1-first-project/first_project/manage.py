@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+from django.http import HttpResponse#!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
