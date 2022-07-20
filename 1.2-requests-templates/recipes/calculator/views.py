@@ -35,44 +35,41 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
-def omlet(request):
-    servings = request.GET.get('servings', None)
-    recipe = DATA['omlet']
+def recipe(request, dish):
+    data = {
+        'omlet': {
+            'яйца, шт': 2,
+            'молоко, л': 0.1,
+            'соль, ч.л.': 0.5,
+        },
+        'pasta': {
+            'макароны, г': 0.3,
+            'сыр, г': 0.05,
+        },
+        'buter': {
+            'хлеб, ломтик': 1,
+            'колбаса, ломтик': 1,
+            'сыр, ломтик': 1,
+            'помидор, ломтик': 1,
+        },
+        'lasanga':{
+             'сыр, грамм': 100,
+             'лазанья, лист': 12,
+             'фарш, грамм': 200,
+             'соус бешамель, грамм': 500,
 
-    context = {
-        'recipe': recipe,
-        'servings': servings if servings is None else int(servings),
+         }
     }
-    return render(request, 'calculator/index.html', context)
 
-
-def pasta(request):
-    servings = request.GET.get('servings', None)
-    recipe = DATA['pasta']
-
-    context = {
-        'recipe': recipe,
-        'servings': servings if servings is None else int(servings),
-    }
-    return render(request, 'calculator/index.html', context)
-
-
-def buter(request):
-    servings = request.GET.get('servings', None)
-    recipe = DATA['buter']
+    servings = int(request.GET.get("servings", 1))
+    if dish in data:
+        dish_recipe = data[f'{dish}']
+        for ingredient, amount in dish_recipe.items():
+            dish_recipe[ingredient] = amount * servings
+    else:
+        dish_recipe = ''
 
     context = {
-        'recipe': recipe,
-        'servings': servings if servings is None else int(servings),
-    }
-    return render(request, 'calculator/index.html', context)
-
-def lasanga(request):
-    servings = request.GET.get('servings', None)
-    recipe = DATA['lasanga']
-
-    context = {
-        'recipe': recipe,
-        'servings': servings if servings is None else int(servings),
+        'recipe': dish_recipe,
     }
     return render(request, 'calculator/index.html', context)
